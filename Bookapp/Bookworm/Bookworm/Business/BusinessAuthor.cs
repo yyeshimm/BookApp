@@ -1,10 +1,5 @@
 ﻿using Bookworm.Data.Models;
 using Bookworm.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bookworm.Business
 {
@@ -17,6 +12,13 @@ namespace Bookworm.Business
             {
                 bookwormContext.Authors.Add(author);
                 bookwormContext.SaveChanges();
+            }
+        }
+        public List<Author> ListAll()
+        {
+            using (bookwormContext = new BookwormContext())
+            {
+                return bookwormContext.Authors.ToList();
             }
         }
         public void Remove(int id)

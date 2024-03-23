@@ -14,6 +14,13 @@ namespace Bookworm.Business
                 bookwormContext.SaveChanges();
             }
         }
+        public List<Book> ListAll()
+        {
+            using (bookwormContext = new BookwormContext())
+            {
+                return bookwormContext.Books.ToList();
+            }
+        }
         public void Remove(int id) 
         { 
             using (bookwormContext = new BookwormContext())

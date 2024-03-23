@@ -8,25 +8,32 @@ using System.Threading.Tasks;
 
 namespace Bookworm.Business
 {
-    internal class BusinessReadingList
+    public class BusinessUser
     {
         private BookwormContext bookwormContext;
-        public void Add(ReadingList rl)
+        public void Add(User user)
         {
             using (bookwormContext = new BookwormContext())
             {
-                bookwormContext.ReadingLists.Add(rl);
+                bookwormContext.Users.Add(user);
                 bookwormContext.SaveChanges();
+            }
+        }
+        public List<User> ListAll()
+        {
+            using (bookwormContext = new BookwormContext())
+            {
+                return bookwormContext.Users.ToList();
             }
         }
         public void Remove(int id)
         {
             using (bookwormContext = new BookwormContext())
             {
-                var rl = bookwormContext.ReadingLists.Find(id);
-                if (rl != null)
+                var user = bookwormContext.Users.Find(id);
+                if (user != null)
                 {
-                    bookwormContext.ReadingLists.Remove(rl);
+                    bookwormContext.Users.Remove(user);
                     bookwormContext.SaveChanges();
                 }
             }

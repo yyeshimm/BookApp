@@ -1,32 +1,34 @@
 ﻿using Bookworm.Data.Models;
 using Bookworm.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bookworm.Business
 {
-    internal class BusinessUser
+    public class BusinessReadingList
     {
         private BookwormContext bookwormContext;
-        public void Add(User user)
+        public void Add(ReadingList rl)
         {
             using (bookwormContext = new BookwormContext())
             {
-                bookwormContext.Users.Add(user);
+                bookwormContext.ReadingLists.Add(rl);
                 bookwormContext.SaveChanges();
+            }
+        }
+        public List<ReadingList> ListAll()
+        {
+            using (bookwormContext = new BookwormContext())
+            {
+                return bookwormContext.ReadingLists.ToList();
             }
         }
         public void Remove(int id)
         {
             using (bookwormContext = new BookwormContext())
             {
-                var user = bookwormContext.Users.Find(id);
-                if (user != null)
+                var rl = bookwormContext.ReadingLists.Find(id);
+                if (rl != null)
                 {
-                    bookwormContext.Users.Remove(user);
+                    bookwormContext.ReadingLists.Remove(rl);
                     bookwormContext.SaveChanges();
                 }
             }
