@@ -13,5 +13,6 @@ namespace Bookworm.Data.Models
         public int UserId { get; set; }
         public User User { get; set; }
         public ICollection<Book> Books { get; set; }
+
     }
 }

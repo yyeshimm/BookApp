@@ -3,7 +3,7 @@ using Bookworm.Data.Models;
 
 namespace Bookworm.Business
 {
-    public class BusinessBookworm
+    public class BusinessBook
     {
         private BookwormContext bookwormContext;
         public void Add(Book book) 

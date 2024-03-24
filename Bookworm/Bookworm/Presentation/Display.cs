@@ -1,5 +1,6 @@
 ﻿using Bookworm.Data.Models;
 using Bookworm.Business;
+using Bookworm.Data;
 
 namespace Bookworm.Presentation
 {
@@ -10,6 +11,7 @@ namespace Bookworm.Presentation
             private readonly BusinessReadingList businessReadingList;
             private readonly BusinessBook businessBook;
             private readonly BusinessAuthor businessAuthor;
+        
 
             public Display()
             {
@@ -164,24 +166,30 @@ namespace Bookworm.Presentation
                 }
             }
 
-            private void AddBook()
+        public void AddBook()
+        {
+            Console.Write("Enter book title: ");
+            string title = Console.ReadLine();
+
+            Console.Write("Enter author name: ");
+            string authorName = Console.ReadLine();
+
+            
+            Author author = new Author { Name = authorName };
+            using (var bookwormContext = new BookwormContext())
             {
-                Console.Write("Enter book title: ");
-                string title = Console.ReadLine();
-                Console.Write("Enter author ID: ");
-                if (int.TryParse(Console.ReadLine(), out int authorId))
-                {
-                    var book = new Book { Title = title, AuthorId = authorId };
-                    businessBook.Add(book);
-                    Console.WriteLine("Book added successfully.");
-                }
-                else
-                {
-                    Console.WriteLine("Invalid author ID.");
-                }
+                bookwormContext.Authors.Add(author);
+                bookwormContext.SaveChanges();
             }
 
-            private void ListAllBooks()
+            
+            var book = new Book { Title = title, AuthorId = author.AuthorId };
+            
+            Console.WriteLine("Book added successfully.");
+        }
+
+
+        private void ListAllBooks()
             {
                 var books = businessBook.ListAll();
                 Console.WriteLine("List of Books:");
